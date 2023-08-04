@@ -1,6 +1,6 @@
 <style>
 body{
-    background-color: #F0F0F0;
+    background-color: #CACAC8;
 }
 .container{
 	max-width:900px;
@@ -13,7 +13,7 @@ body{
 	flex-wrap: wrap;
 }
 .container .wrapper .card{
-	background-color:#ffff;
+	background-color:teal;
 	width:230px;
 	height:400px;
 	border-radius:5px;
@@ -31,42 +31,21 @@ body{
     text-align:center;
 	width:200px;
 	height:60px;
-    color: #E7346E;
 }
 .card:nth-child(even){
 	margin-left:10px;
 	margin-right:10px;
 }
 </style>
-<?php
-get_header();
-?>
 <body>
-<marquee style="color:red ;"><h1>Breaking News</h1></marquee>
-
-<?php
-get_header();
-if ( have_posts() ) {
-?>
-    <div class="container">
-    <div class="wrapper">
-<?php
-   $meta_key ="breaking_news";
-   $request= $wpdb->prepare("SELECT * FROM `wp_postmeta` WHERE `meta_key` ='" .$meta_key ."'");
-   $result = $wpdb->get_results( $request); 
-   //var_dump($result["0"]["post_id"]);
-   if(get_post_meta(7))
-   {
-?>
-        
-                    <div class="card">
+<div class="card">
                         <div class="singleview">
                             <a href="single-wp_news.php">Single View</a>
                         </div>
                         <div class="title">
-                            <h3>
+                            <h3 style="color:white ;">
                                 <?php 
-                                    $get_meta_breaking_news_title = get_post_meta(7,"breaking_news");
+                                    $get_meta_breaking_news_title = get_field('breaking_news');
                                     foreach ($get_meta_breaking_news_title as $get_meta_post_value){
                                         echo $get_meta_post_value;
                                 }
@@ -86,14 +65,9 @@ if ( have_posts() ) {
                             }*/
                             $image = get_field('thumb_nail');
                             echo $image;
-                            var_dump($image);
-                            echo wp_get_attachment_image(get_field('thumb_nail'))
                             ?>
-                                <img src="<?php echo $image ?>" />
-                                <?php
-                                
-                                ?>
-                        <h4 style="color:rgb(65,76,91);">
+                                <img src="<?php $image ?>" />
+                        <h4>
                             <?php 
                                 $get_meta_breaking_news_description = get_post_meta(7,"description");
                                 
@@ -103,32 +77,4 @@ if ( have_posts() ) {
                             ?>
                         </h4>
                     </div>
-           
-                <?php
-                
-                ?>
-          
-<?php
-    }
-?>
-    </div>
-    </div>
-<?php
-	while ( have_posts() )
-    {
-        the_post();
-?>
-
-        <h2><?php the_title() ?></h2>
-		<h4><?php the_content() ?></h4>
-        
-<?php
-    
-    } 
-}
-else {
-    echo '<p>There are no posts!</p>';
-}
-	
-?>
 </body>

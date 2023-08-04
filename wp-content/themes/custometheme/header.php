@@ -7,7 +7,13 @@
     ?>
     <link rel="stylesheet" href="customeheader.css">
 </head>
-<body>
+<style>
+    .header_container{
+        background-color: black;
+        height: 60px;
+    }
+</style>
+<body class="header">
     <div class="header_container">
         <div class="nav">
             <a  href="#home">Home</a>
