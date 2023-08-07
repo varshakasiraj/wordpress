@@ -3,7 +3,6 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <title><?php bloginfo( 'name' ); ?></title>
     <?php /*wp_enqueue_style( 'customeheader', get_stylesheet_uri().'/customeheader.css' );*/
-       //wp_head();
     ?>
     <link rel="stylesheet" href="customeheader.css">
 </head>
