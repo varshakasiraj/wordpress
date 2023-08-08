@@ -23,6 +23,7 @@ add_filter("add_meta_post","add_post",3,4);
 function get_meta_post($post_id,$meta_key){
   return get_post_meta($post_id,$meta_key);
 }
+
 add_filter("get_meta_post","get_meta_post",4,2);
 function wp_custom_post_news() {
 	register_post_type('wp_news',
