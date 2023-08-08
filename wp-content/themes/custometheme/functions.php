@@ -23,19 +23,8 @@ add_filter("add_meta_post","add_post",3,4);
 function get_meta_post($post_id,$meta_key){
   return get_post_meta($post_id,$meta_key);
 }
-$meta_key = "hello_post_description";
-$get_post = apply_filters('get_meta_post',1,$meta_key);
-//var_dump($get_post);
-if(empty($get_post)){
-	$add_meta_post = apply_filters('add_meta_post',1,'hello_post_description','A meta description in
- WordPress is a short text that describes the content and the purpose of a page.',true);
-}
-/*foreach ($get_post as $get_meta_post_value){
-     echo $get_meta_post_value;
-}
-add_filter("get_meta_post","get_meta_post",4,2);*/
 
-
+add_filter("get_meta_post","get_meta_post",4,2);
 function wp_custom_post_news() {
 	register_post_type('wp_news',
 		array(
