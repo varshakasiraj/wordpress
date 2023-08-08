@@ -61,6 +61,5 @@
                     <li><a href="#about">About us</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
+      </div>
 </body>
