@@ -37,44 +37,36 @@ body{
 	margin-right:10px;
 }
 </style>
+<?php get_header(); ?>
 <body>
-<div class="card">
-                        <div class="singleview">
+<h1>Breaking News</h1>
+<div class="container">
+    <div class="wrapper">
+
+        <?php
+        if ( have_posts() ) : 
+           
+            $breaking_title = get_field('breaking_news');
+            $breaking_description = get_field('description'); 
+            $breaking_image=wp_get_attachment_image(get_field('breakingnews_image')); 
+        ?>
+            <div class="card">
+                       <div class="singleview">
                             <a href="single-wp_news.php">Single View</a>
                         </div>
                         <div class="title">
-                            <h3 style="color:white ;">
-                                <?php 
-                                    $get_meta_breaking_news_title = get_field('breaking_news');
-                                    foreach ($get_meta_breaking_news_title as $get_meta_post_value){
-                                        echo $get_meta_post_value;
-                                }
-                                ?>
-                            </h3>
+                            <h4><?php echo $breaking_title ?></h4>
                         </div>
                         <div>
-                            <?php 
-                                /*$get_meta_breaking_news_description = get_post_meta(7,"thumb_nail");
-                                var_dump( get_post_meta(7,"thumb_nail"));
-                                foreach ($get_meta_breaking_news_description as $get_meta_post_value)
-                                {
-
-                            ?>
-                                       <img src="<?php $get_meta_post_value ?>"/>
-                            <?php
-                            }*/
-                            $image = get_field('thumb_nail');
-                            echo $image;
-                            ?>
-                                <img src="<?php $image ?>" />
-                        <h4>
-                            <?php 
-                                $get_meta_breaking_news_description = get_post_meta(7,"description");
-                                
-                                foreach ($get_meta_breaking_news_description as $get_meta_post_value){
-                                    echo $get_meta_post_value;
-                            }
-                            ?>
-                        </h4>
-                    </div>
+                            <?php echo  $breaking_image ?>
+                        <div>
+                        <div>
+                            <h6><?php echo $breaking_description ?></h6>
+                        </div>
+            </div>
+        <?php
+        endif;
+        ?>
+    </div>
+</div>
 </body>

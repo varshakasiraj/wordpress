@@ -1,6 +1,6 @@
 <style>
 body{
-    background-color: #F0F0F0;
+    background-color: #CACAC8;
 }
 .container{
 	max-width:900px;
@@ -13,24 +13,33 @@ body{
 	flex-wrap: wrap;
 }
 .container .wrapper .card{
-	background-color:#ffff;
+	background-color:#FFFFFF;
 	width:230px;
-	height:500px;
-	border-radius:5px;
-    margin-bottom: 10px;
+	height:450px;
+	border-radius:15px;
+    padding:5px 15px 10px;
+	margin-bottom:40px;
 }
 .container .wrapper .singleview{
     margin: 5px 0;
     width:90px;
 	height:30px;
     background-color:#EFC4C3;
+    
+}
+.container .wrapper .singleview a{
+    text-decoration: none;
+    padding: 5px;
 }
 .container .wrapper .card .title{
     margin: 40px 10px;
     text-align:center;
 	width:200px;
 	height:60px;
-    color: #E7346E;
+}
+.card:nth-child(even){
+	margin-left:10px;
+	margin-right:10px;
 }
 </style>
 <?php get_header(); ?>
@@ -38,7 +47,7 @@ body{
 <h1>Breaking News</h1>
 <div class="container">
     <div class="wrapper">
-    
+
         <?php
         if ( have_posts() ) : 
             while ( have_posts() ) : the_post();
@@ -55,7 +64,7 @@ body{
                         </div>
                         <div>
                             <?php echo  $breaking_image ?>
-                        <div>
+                        </div>
                         <div>
                             <h6><?php echo $breaking_description ?></h6>
                         </div>

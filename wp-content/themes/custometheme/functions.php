@@ -1,5 +1,5 @@
 <?php
-
+include('custome-shortcodes.php');
 function customeHook(){
     ?>
     <meta http-equiv="cache-control" content="max-age=0" />
@@ -34,6 +34,8 @@ if(empty($get_post)){
      echo $get_meta_post_value;
 }
 add_filter("get_meta_post","get_meta_post",4,2);*/
+
+
 function wp_custom_post_news() {
 	register_post_type('wp_news',
 		array(
@@ -50,5 +52,17 @@ function wp_custom_post_news() {
 	);
 }
 add_action('init', 'wp_custom_post_news');
+add_theme_support( 'menus' );
+/*function hstngr_register_widget() {
+  register_widget( 'hstngr_widget' );
+  }
+  add_action( 'widgets_init', 'hstngr_register_widget');
+class custome_widget extends WP_Widget {
+  function __construct() {
+    parent::__construct();}
+  public function widget( $args, $instance ) {
+    
+    }
+  }*/
 
 ?>
