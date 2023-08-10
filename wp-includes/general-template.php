@@ -3048,7 +3048,6 @@ function wp_head() {
 	 */
 	do_action( 'wp_head' );
 }
-
 /**
  * Fires the wp_footer action.
  *
