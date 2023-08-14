@@ -11,9 +11,13 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+    body{
+        margin: 0 auto;
+        padding: 0;
+    }
     .header_container{
         background-color: #FFFFFF;
-        height: 60px;
+        height: 100px;
     }
     .header_container .nav a{
 
@@ -30,7 +34,7 @@
         word-spacing: 2px;
         padding: 10px;
     }
-    .header_container .nav .firstli{
+    .header_container .nav .firstli a{
         color: red;
     }
     .nav{
@@ -42,6 +46,10 @@
     .header_container .nav .logo{
         font-size: 25px;
         font-family: 'Vina Sans', cursive;
+        
+    }
+    .header_container .nav .logo h1{
+        margin: 0;
     }
     .header_container .nav .logo span{
         color: #FF3F3E;
@@ -53,12 +61,19 @@
     .header_container .nav .icons{
         
     }
+    .header_container .nav .search{
+        margin: 25px 20px 0;
+    }
+    .header_container .nav .search i{
+        width: 50px;
+        height: 50px;
+    }
 </style>
 <body class="header">
     <div class="header_container">
         <div class="nav">
             <div class="logo">
-                <p>Sha<span>Shop</span></p>
+                <h1>Sha<span>Shop</span></h1>
             </div>
             <div class="title">
                 <ul>
@@ -77,8 +92,8 @@
                     <li><i class="fa-brands fa-dribbble"></i></li>
                 </ul>
             </div>
-            <div>
-                   <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="search">
+                   <i class="fa-solid fa-magnifying-glass fa-xl"></i>
             </div>
         </div>
     </div>
