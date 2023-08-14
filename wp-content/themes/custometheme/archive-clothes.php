@@ -46,6 +46,7 @@ body{
 <?php get_header(); ?>
 </div>
 <h1>Clothes</h1>
+
 <div class="container">
         <div class="wrapper">
 <?php
