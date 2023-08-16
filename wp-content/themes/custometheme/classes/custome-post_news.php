@@ -3,7 +3,7 @@ class CustomePostNews{
     public function __construct(){
         add_action('init', array(get_called_class(),'wp_custom_post_news'));
     }
-    public function wp_custom_post_news() {
+    public static function wp_custom_post_news() {
         register_post_type('wp_news',
             array(
                 'labels'      => array(
