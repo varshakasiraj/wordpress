@@ -12,6 +12,7 @@ sb.core = function () {
         },
 
         loadtable:function(){
+            $('#mytable').append('<input id="filterbar" type="text" placeholder="Search..">');
             $('#mytable').append('<table id="myadmintable">');
             $('#myadmintable').append('<tr>'
             +'<th>ID</th>'
