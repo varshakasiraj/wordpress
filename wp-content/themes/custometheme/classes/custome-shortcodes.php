@@ -27,7 +27,7 @@ class CustomeShortCode{
                 ?>
                      <div class="card">
                         <div class="img">
-                        <img src="<?php echo get_the_post_thumbnail_url('','large')?>" width="676px" height="424px"/>
+                        <img src="<?php echo get_the_post_thumbnail_url('','large')?>" width="446px" height="327px"/>
                         </div>
                         <div class="tags">
                             <div class="trends">
