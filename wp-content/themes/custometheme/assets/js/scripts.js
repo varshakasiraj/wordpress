@@ -1,5 +1,4 @@
 var sb = sb || {};
-//Core scripts
 sb.core = function () {
     var self = {
         load: function () {
@@ -100,6 +99,8 @@ sb.core = function () {
                     }
                       
                 })
+                window
+                $('#frockcount').appendTo(count);
                 
             })
         },
@@ -121,7 +122,6 @@ sb.core = function () {
         },
         tablerefresh:function(){
             $('#refreshtable').click(function(){
-                console.log("hi");
                 history.go(0);
             });
             
