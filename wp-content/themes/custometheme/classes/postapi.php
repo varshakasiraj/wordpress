@@ -19,7 +19,7 @@ class CustomeApi{
                     array(
                         'taxonomy' => 'men',
                         'field' => 'slug',
-                        'terms' => array('casual','formal','traditional','frock','maxi'),
+                        'terms' => array('casual','formal','traditional','frock','maxi','women' ),
                         
                     ),
                 )
@@ -35,12 +35,13 @@ class CustomeApi{
                         "post_content" =>$row->post_content,
                         "post_date"=>$row->post_date,
                         "post_status"=>$row->post_status, 
-                        "post_term_name" => $men->name
+                        "post_term_name" => $men->name,
+                        "post_term_id" => $men->term_id
                      );
                     
                 }
-           }          
-        return  json_encode($dress);
+           }   
+        return  json_encode($dress);           
     }
 }
 CustomeApi::register_api();

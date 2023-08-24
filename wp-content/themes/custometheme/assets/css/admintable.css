@@ -5,3 +5,13 @@ table, th, td {
 td {
   text-align: center;
 }
+tr td:eq(1){
+  color:red;
+}
+#casual:active{
+  color: brown;
+}
+.filtercheckboxlist {
+  list-style-type: none;
+  display: inline;
+}
