@@ -1,4 +1,5 @@
 var sb = sb || {};
+//Core scripts
 sb.core = function () {
     var self = {
         load: function () {
@@ -37,7 +38,7 @@ sb.core = function () {
                     var postlist  = JSON.parse(response);
             
                         $('#myadmintable').append("<tbody id='myadmintbody'>");
-                        var myArray = new Array();
+                        var  myArray = new Array();
                         postlist.forEach(function(data){
                             $('#myadmintable').append('<tr class="tablerow">'
                             +'<td>'+data.post_id+'</td>'
@@ -47,12 +48,21 @@ sb.core = function () {
                             +'<td>'+data.post_date+'</td>'
                             +'<td>'+data.post_status+'</td>'
                             +'</tr>');
-                            myArray.push(data.post_id);
-                         }
-                         
-                         )
-                         self.tablesort(myArray);
-                         $('#myadmintable').append("</tbody>");
+                            if(data.post_term_name){
+                                myArray.push(data.post_term_id);
+                            }
+                         });
+                         var myNewArray = myArray.filter(function(elem, index, self) {
+                            return index === self.indexOf(elem);
+                        });                        
+                        $('#myadmintable').append("</tbody>");
+                        myNewArray.forEach(function(key){ 
+                            $('#filtercheckbox').append('<li class = "filtercheckboxlist"><input type="checkbox" name="' + key + '" id="' + key + '"/>' +
+                             '<label for="' + key + '">' + key +'</label></li>');
+                            console.log(key);
+                             self.fliterCategories(key);
+                        });
+                        $('#filtercheckbox').append('</ul>');
                         
                    
                 }
@@ -66,43 +76,20 @@ sb.core = function () {
                 })
             });
         },
-        fliterCategories:function(){
-            $('#casual').click(function(){
-                var value = 'casual'.toLowerCase();
-                var count = 0 ;
+        fliterCategories:function(key){
+            $('#'+key).change(function() {
+            var count = 0 ;
+            if($('#'+key).is(':checked')){
+               var value =key.toLowerCase();
                $('#myadmintbody  tr').filter(function(){
-                  if($(this.children[1]).text().toLowerCase().indexOf(value))
-                  {
-                    $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1);
-                    count = count+1;
-                  } 
-               })
-           })
-            $('#maxi').click(function(){
-                 var value = 'maxi'.toLowerCase();
-                $('#myadmintbody  tr').filter(function(){
-                    if($(this.children[1]).text().toLowerCase().indexOf(value))
-                    {
-                        $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1);
-                        count = count+1;
-                    }
-                })
-                console.log( $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1).length);
-            })
-            $('#frock').click(function(){
-                 var value = 'Frock'.toLowerCase();
-                 var count = 0 ;
-                $('#myadmintbody  tr').filter(function(){
-                    if($(this.children[1]).text().toLowerCase().indexOf(value)){
-                        $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1);
-                        count = count+1;
-                    }
-                      
-                })
-                window
-                $('#frockcount').appendTo(count);
-                
-            })
+                $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1);
+                $('#'+key).parent().css('color', 'green');
+                count =$('.tablerow:not([style*="display: none"])').length;    
+             })
+              
+              $('<p>'+key+' count '+ count +'<p>').insertAfter("#filtercheckbox");
+           }
+        });
         },
         tablesort:function(){
             $('#sorttable').click(function(){
