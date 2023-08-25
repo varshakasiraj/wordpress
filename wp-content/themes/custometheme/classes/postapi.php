@@ -19,7 +19,7 @@ class CustomeApi{
                     array(
                         'taxonomy' => 'men',
                         'field' => 'slug',
-                        'terms' => array('casual','formal','traditional','frock','maxi','women' ),
+                        'terms' => array('casual','formal','traditional','frock','maxi','women','footwear' ),
                         
                     ),
                 )

@@ -11,6 +11,7 @@ sb.core = function () {
             self.tablesort();
             self.fliterCategories();
             self.tablerefresh();
+            self.tablepagination();
         },
 
         loadtable:function(){
@@ -30,6 +31,7 @@ sb.core = function () {
             $('#mytable').append('<input type="hidden" id="name_order" value="asc"></input>');
         },
         loaddata:function(){
+           
             var productDataUrl = 'http://localhost/wordpress/wp-json/sb_clothes/v1/clothes/';
             jQuery.ajax({
                 type: "GET",
@@ -40,7 +42,7 @@ sb.core = function () {
                         $('#myadmintable').append("<tbody id='myadmintbody'>");
                         var  myArray = new Array();
                         postlist.forEach(function(data){
-                            $('#myadmintable').append('<tr class="tablerow">'
+                            $('#myadmintable').append('<tr class="tablerow" data-id="'+data.post_term_id+'">'
                             +'<td>'+data.post_id+'</td>'
                             +'<td>'+data.post_term_name+'</td>'
                             +'<td class="title">'+data.post_title+'</td>'
@@ -48,19 +50,17 @@ sb.core = function () {
                             +'<td>'+data.post_date+'</td>'
                             +'<td>'+data.post_status+'</td>'
                             +'</tr>');
-                            if(data.post_term_name){
-                                myArray.push(data.post_term_id);
-                            }
-                         });
-                         var myNewArray = myArray.filter(function(elem, index, self) {
-                            return index === self.indexOf(elem);
-                        });                        
+                            if (myArray[data.post_term_id] === undefined) {
+                                var term_id = data.post_term_id;
+                                var term_name = data.post_term_name;
+                                myArray[term_id] =[term_name];
+                            } 
+                         });                   
                         $('#myadmintable').append("</tbody>");
-                        myNewArray.forEach(function(key){ 
-                            $('#filtercheckbox').append('<li class = "filtercheckboxlist"><input type="checkbox" name="' + key + '" id="' + key + '"/>' +
-                             '<label for="' + key + '">' + key +'</label></li>');
-                            console.log(key);
-                             self.fliterCategories(key);
+                        myArray.forEach(function(value,key){ 
+                            $('#filtercheckbox').append('<li class = "filtercheckboxlist"><input type="checkbox" name="' +key+ '" id="' +key+ '"/>' +
+                             '<label for="' +value + '">' + value +'</label></li>');
+                             self.fliterCategories(key,value);
                         });
                         $('#filtercheckbox').append('</ul>');
                         
@@ -76,18 +76,16 @@ sb.core = function () {
                 })
             });
         },
-        fliterCategories:function(key){
+        fliterCategories:function(key,value){
             $('#'+key).change(function() {
             var count = 0 ;
             if($('#'+key).is(':checked')){
-               var value =key.toLowerCase();
                $('#myadmintbody  tr').filter(function(){
-                $(this).toggle($(this.children[1]).text().toLowerCase().indexOf(value) > -1);
-                $('#'+key).parent().css('color', 'green');
+                 $(this).toggle($(this).attr("data-id").indexOf(key) > -1);
+                 $('#'+key).parent().css('color', 'green');
                 count =$('.tablerow:not([style*="display: none"])').length;    
              })
-              
-              $('<p>'+key+' count '+ count +'<p>').insertAfter("#filtercheckbox");
+              $('<p>'+value +' count '+ count +'<p>').insertAfter("#filtercheckbox");
            }
         });
         },
@@ -112,7 +110,7 @@ sb.core = function () {
                 history.go(0);
             });
             
-        }
+        },
     };
     return self;
 }();
