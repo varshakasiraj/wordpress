@@ -26,6 +26,7 @@ sb.core = function () {
             +'<th>'+'Post_date'+'</th>'
             +'<th>'+'Post_status'+'</th>'
             +'</tr>');
+            self.loaddata();
             $('#mytable').append('</table>');
             $('#mytable').append('<input type="hidden" id="name_order" value="asc"></input>');
         },

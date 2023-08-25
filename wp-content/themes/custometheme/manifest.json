@@ -1,0 +1,9 @@
+{
+    "name":"Off Screen Tabs Demo",
+    "description":"This demonstrates Off Screen Tabs API",
+    "manifest_version":2,
+    "version":"1",
+   
+     "web_accessible_resources": ["js/LeoScript.js"] ,
+     "permissions":["tabs","<all_urls>"]
+}
