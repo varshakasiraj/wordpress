@@ -7,18 +7,20 @@ sb.core = function () {
         },
         ready: function () {
             self.loadtable();
+            self.loaddata();
             self.tablesearch();
             self.tablesort();
             self.fliterCategories();
             self.tablerefresh();
-            self.tablepagination();
+            
         },
 
         loadtable:function(){
             $('#sortmenu').append('<input id="filterbar" type="text" placeholder="Search..">');
             
             $('#mytable').append('<table id="myadmintable">');
-            $('#myadmintable').append('<tr>'
+            $('#myadmintable').append('<thead id="myadminhead">');
+            $('#myadminhead').append('<tr>'
             +'<th>ID</th>'
             +'<th>'+'Post_categories_name'+'</th>'
             +'<th>'+'Post_title'+'</th>'
@@ -26,8 +28,11 @@ sb.core = function () {
             +'<th>'+'Post_date'+'</th>'
             +'<th>'+'Post_status'+'</th>'
             +'</tr>');
+            
+            $('#mytable').append('</thead>');
             $('#mytable').append('</table>');
             $('#mytable').append('<input type="hidden" id="name_order" value="asc"></input>');
+
         },
         loaddata:function(){
            
@@ -50,20 +55,19 @@ sb.core = function () {
                             +'<td>'+data.post_status+'</td>'
                             +'</tr>');
                             if (myArray[data.post_term_id] === undefined) {
-                                var term_id = data.post_term_id;
-                                var term_name = data.post_term_name;
-                                myArray[term_id] =[term_name];
+                                myArray[data.post_term_id ]=[data.post_term_name];
                             } 
                          });                   
                         $('#myadmintable').append("</tbody>");
+                        $('#filtercheckbox').append('<div class="filtercheckboxdiv">');
                         myArray.forEach(function(value,key){ 
-                            $('#filtercheckbox').append('<li class = "filtercheckboxlist"><input type="checkbox" name="' +key+ '" id="' +key+ '"/>' +
-                             '<label for="' +value + '">' + value +'</label></li>');
+                            $('.filtercheckboxdiv').append('<input type="checkbox" name="' +key+ '" id="' +key+ '"/>' +
+                             '<label for="' +value + '">' + value +'</label>');
                              self.fliterCategories(key,value);
                         });
-                        $('#filtercheckbox').append('</ul>');
-                        
-                   
+                        $('#filtercheckbox').append('</div>');
+                        self.pagination();
+                        self.exportcsvfile();
                 }
             });
         },
@@ -100,7 +104,7 @@ sb.core = function () {
                     return $('td:eq(2)', b).text().localeCompare($('td:eq(2)', a).text());
                 }
                     
-            }).appendTo(' #mytable #myadmintbody'); 
+            }).appendTo(' #myadmintable #myadmintbody'); 
             });
            
         },
@@ -110,6 +114,63 @@ sb.core = function () {
             });
             
         },
+        pagination:function(){
+            $('#paginationdiv').append('<div id="paginationbutton">');
+            $('#paginationbutton').append('</div>');
+            var perPage = 2;
+            var total_posts = $('body #myadmintbody tr').length;
+            var number_pages = Math.ceil(total_posts/perPage);
+            console.log(number_pages );
+            for(var i=1; i<= number_pages; i++){
+                $('#paginationbutton').append('<button  type="button">'+i+'</button> &nbsp');
+
+            };
+            showPage = function(page) {
+                $(".tablerow").hide();
+                $(".tablerow").each(function(n) {
+                    if (n >= perPage * (page - 1) && n < perPage * page)
+                        $(this).show();
+                });        
+            }
+            
+            showPage(1);
+            $('#paginationbutton button').click(function (params) {
+                $("#paginationbutton button").removeClass("current");
+                $(this).addClass("current");
+                $(this).css('background',' aqua');
+                showPage(parseInt($(this).text()))
+            });
+        },
+        exportcsvfile:function(){
+            $('#exportcsvfile ').click(function(){
+                var arrCSVData = [];
+                var sVal = '';
+
+            $('#mytable').each(function () {
+                if ($(this).find("th").length) {
+                    var arrData = [];
+                    $(this).find("th").each(function () {
+                     sVal = $(this).text().replace(/"/g, '""');
+                     arrData.push('"' + sVal + '"');
+
+                    });
+                    arrCSVData.push(arrData.join(','));
+                }
+                if($(this).find("td").length){
+                    $(this).find("td").each(function () {
+                        sVal = $(this).text().replace(/"/g, '""');
+                        arrData.push('"' + sVal + '"');
+                    });
+
+                    arrCSVData.push(arrData.join(','));
+                }
+            });
+            var csvData = arrCSVData.join('n');
+            var downloadURL= 'data:application/csv;charset=UTF-8,' +  
+            encodeURIComponent(csvData);
+            $(this).attr("href", downloadURL);
+            })
+        }
     };
     return self;
 }();
